@@ -3,7 +3,7 @@
 This yii-extension is a memcached drop in replacement for sessions and cache. 
 
 The file `Session` handler and the file `Cache` driver gets replaced in [fortrabbit](https://help.fortrabbit.com/stacks) environments - it requires the Memcache component on the Professional Stack.
-Memcache is mandatory in multi node enviromnments. 
+[Read on why Memcache](https://help.fortrabbit.com/memcache-pro) is mandatory in multi node environments 
 
 ## Install
 
