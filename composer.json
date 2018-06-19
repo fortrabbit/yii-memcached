@@ -1,6 +1,6 @@
 {
   "name": "fortrabbit/yii-memcached",
-  "description": "Mutes deprecation logs in production",
+  "description": "Memcached Session & Cache for Craft3 / Yii2 on fortrabbit",
   "version": "1.0.0",
   "type": "yii2-extension",
 
