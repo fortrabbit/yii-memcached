@@ -53,7 +53,7 @@ class Bootstrap implements BootstrapInterface
         foreach (range(1, getenv('MEMCACHE_COUNT')) as $num) {
             $servers[] = [
                 'host'          => getenv('MEMCACHE_HOST' . $num),
-                'port'          => getenv('MEMCACHE_PORT' . $num),
+                'port'          => (int) getenv('MEMCACHE_PORT' . $num),
                 'weight'        => 1,
             ];
         }
