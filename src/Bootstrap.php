@@ -4,7 +4,6 @@ namespace fortrabbit\MemcachedEnabler;
 
 use yii\base\BootstrapInterface;
 use yii\base\InvalidConfigException;
-use yii\caching\MemCache;
 
 /**
  * Class Bootstrap
