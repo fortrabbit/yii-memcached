@@ -5,7 +5,6 @@ namespace fortrabbit\MemcachedEnabler;
 use craft\mutex\Mutex;
 use yii\base\BootstrapInterface;
 use yii\base\InvalidConfigException;
-use yii\di\Instance;
 
 /**
  * Class Bootstrap
