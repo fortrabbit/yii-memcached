@@ -1,4 +1,4 @@
-# Yii2/Craft3 memcached enabler
+# Craft3 memcached enabler
 
 This yii-extension is a memcached drop in replacement for sessions and cache. 
 

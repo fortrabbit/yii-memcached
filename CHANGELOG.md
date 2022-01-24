@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.0] - UNRELEASED
+- depends on Craft 3.7.30
+- uses Cache mutex (memcached) 
+
 ## [1.2.0] - 2021-02-08
 - added `fortrabbit\MemcachedEnabler\MemCache` class 
 - wrapped `setValues()` and `setValue()` in a try / catch 
