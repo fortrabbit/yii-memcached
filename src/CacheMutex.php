@@ -4,7 +4,7 @@ namespace fortrabbit\MemcachedEnabler;
 
 use yii\caching\CacheInterface;
 
-class CacheMutex
+class CacheMutex extends \yii\mutex\Mutex
 {
     const CACHE_VALUE = 1;
 
@@ -28,39 +28,39 @@ class CacheMutex
     public function __construct(CacheInterface $cache)
     {
         $this->cache = $cache;
+        parent::__construct();
     }
 
     /**
-     * @param string $name
-     * @param int $timeout in seconds
-     *
-     * @return bool
+     * @inheritdoc
      */
-    public function acquire(string $name, int $timeout = 0): bool
+    public function acquireLock($name, $timeout = 0): bool
     {
         $remainingTimeInMilliseconds = $timeout * 1000;
 
         // Retry until no time left
-        while ($this->isAcquired($name) && $remainingTimeInMilliseconds > 0) {
+        while ($this->isLocked($name) && $remainingTimeInMilliseconds > 0) {
             $remainingTimeInMilliseconds = $remainingTimeInMilliseconds - $this->retryDelay;
         }
 
         // Still acquired?
-        if ($this->isAcquired($name)) {
+        if ($this->isLocked($name)) {
             return false;
         }
 
         return $this->cache->set($name, self::CACHE_VALUE, $this->expire);
     }
 
-
-    public function release(string $name): bool
+    /**
+     * @inheritdoc
+     */
+    public function releaseLock($name): bool
     {
         return $this->cache->delete($name);
     }
 
 
-    public function isAcquired(string $name): bool
+    public function isLocked(string $name): bool
     {
         return (bool) $this->cache->get($name);
     }
