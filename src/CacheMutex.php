@@ -25,10 +25,10 @@ class CacheMutex extends \yii\mutex\Mutex
     public $cache;
 
 
-    public function __construct(CacheInterface $cache)
+    public function __construct(CacheInterface $cache, array $config = [])
     {
         $this->cache = $cache;
-        parent::__construct();
+        parent::__construct($config);
     }
 
     /**
