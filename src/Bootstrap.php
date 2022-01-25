@@ -2,6 +2,7 @@
 
 namespace fortrabbit\MemcachedEnabler;
 
+use craft\mutex\Mutex;
 use yii\base\BootstrapInterface;
 use yii\base\InvalidConfigException;
 
@@ -13,13 +14,12 @@ use yii\base\InvalidConfigException;
  */
 class Bootstrap implements BootstrapInterface
 {
-
     const TIMEOUT_IN_MILLISECONDS = 50;
 
     /**
      * Bootstrapper
      *
-     * @param \yii\base\Application $app
+     * @param \yii\base\Application|\craft\web\Application|\craft\console\Application $app
      */
     public function bootstrap($app)
     {
@@ -29,15 +29,23 @@ class Bootstrap implements BootstrapInterface
             // Set cache component
             try {
                 $app->set('cache', [
-                    'class'        => MemCache::class,
+                    'class' => MemCache::class,
                     'persistentId' => getenv('MEMCACHE_PERSISTENT') ? 'cache' : null,
-                    'servers'      => $this->getMemcachedServers(),
-                    'options'      => $this->getOptions(),
+                    'servers' => $this->getMemcachedServers(),
+                    'options' => $this->getOptions(),
                     'useMemcached' => true
                 ]);
             } catch (InvalidConfigException $e) {
                 error_log('MemcachedEnabler: ' . $e->getMessage());
             }
+
+            // Set mutex component using the CacheMutex that with
+            // the `cache` configured previously
+            $app->set('mutex', [
+                'class' => Mutex::class,
+                'mutex' => new CacheMutex($app->getCache()),
+            ]);
+
         }
     }
 
@@ -51,9 +59,9 @@ class Bootstrap implements BootstrapInterface
 
         foreach (range(1, getenv('MEMCACHE_COUNT')) as $num) {
             $servers[] = [
-                'host'          => getenv('MEMCACHE_HOST' . $num),
-                'port'          => (int) getenv('MEMCACHE_PORT' . $num),
-                'weight'        => 1,
+                'host' => getenv('MEMCACHE_HOST' . $num),
+                'port' => (int)getenv('MEMCACHE_PORT' . $num),
+                'weight' => 1,
             ];
         }
 
@@ -75,24 +83,24 @@ class Bootstrap implements BootstrapInterface
             \Memcached::OPT_REMOVE_FAILED_SERVERS => true,
 
             // ... retried after a short while (here: 2 seconds)
-            \Memcached::OPT_RETRY_TIMEOUT         => 2,
+            \Memcached::OPT_RETRY_TIMEOUT => 2,
 
             // KETAMA must be enabled so that replication can be used
-            \Memcached::OPT_LIBKETAMA_COMPATIBLE  => true,
+            \Memcached::OPT_LIBKETAMA_COMPATIBLE => true,
 
             // Replicate the data, i.e. write it to both memcached servers
-            \Memcached::OPT_NUMBER_OF_REPLICAS    => 1,
+            \Memcached::OPT_NUMBER_OF_REPLICAS => 1,
 
             // Those values assure that a dead (due to increased latency or
             // really unresponsive) memcached server increased dropped fast
             // and the other is used.
-            \Memcached::OPT_POLL_TIMEOUT          => self::TIMEOUT_IN_MILLISECONDS,           // milliseconds
-            \Memcached::OPT_SEND_TIMEOUT          => self::TIMEOUT_IN_MILLISECONDS * 1000,    // microseconds
-            \Memcached::OPT_RECV_TIMEOUT          => self::TIMEOUT_IN_MILLISECONDS * 1000,    // microseconds
-            \Memcached::OPT_CONNECT_TIMEOUT       => self::TIMEOUT_IN_MILLISECONDS,           // milliseconds
+            \Memcached::OPT_POLL_TIMEOUT => self::TIMEOUT_IN_MILLISECONDS,           // milliseconds
+            \Memcached::OPT_SEND_TIMEOUT => self::TIMEOUT_IN_MILLISECONDS * 1000,    // microseconds
+            \Memcached::OPT_RECV_TIMEOUT => self::TIMEOUT_IN_MILLISECONDS * 1000,    // microseconds
+            \Memcached::OPT_CONNECT_TIMEOUT => self::TIMEOUT_IN_MILLISECONDS,           // milliseconds
 
             // Further performance tuning
-            \Memcached::OPT_NO_BLOCK              => true,
+            \Memcached::OPT_NO_BLOCK => true,
         ];
     }
 }
