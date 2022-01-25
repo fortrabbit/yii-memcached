@@ -2,9 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
-## [2.0.0] - UNRELEASED
+## [1.3.0] - 2022-01-25
 - depends on Craft 3.7.30
-- uses Cache mutex (memcached) 
+- uses Cache mutex (Memcached driver) 
 
 ## [1.2.0] - 2021-02-08
 - added `fortrabbit\MemcachedEnabler\MemCache` class 
