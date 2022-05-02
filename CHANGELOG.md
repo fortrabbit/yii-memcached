@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.1] - 2022-05-01
+Previous release wasn't tagged correctly. 
+
+
 ## [1.3.0] - 2022-01-25
 - depends on Craft 3.7.30
 - uses Cache mutex (Memcached driver) 
