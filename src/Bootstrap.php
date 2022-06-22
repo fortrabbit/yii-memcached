@@ -20,6 +20,8 @@ class Bootstrap implements BootstrapInterface
      * Bootstrapper
      *
      * @param \yii\base\Application|\craft\web\Application|\craft\console\Application $app
+     *
+     * @throws \yii\base\InvalidConfigException
      */
     public function bootstrap($app)
     {

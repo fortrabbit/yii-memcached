@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.0] - 2022-05-05
+Support for Craft 4 added. 
+
 ## [1.3.1] - 2022-05-01
 Previous release wasn't tagged correctly. 
 
