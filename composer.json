@@ -1,6 +1,6 @@
 {
   "name": "fortrabbit/yii-memcached",
-  "description": "Memcached Session & Cache for Craft3 / Yii2 on fortrabbit",
+  "description": "Memcached Session & Cache for Craft CMS / Yii2 on fortrabbit",
   "type": "yii2-extension",
   "keywords": ["yii2", "craftcms", "caching", "cache", "memcached", "memcache", "session", "mutex"],
   "license": "MIT",
@@ -17,7 +17,7 @@
     "docs": "https://github.com/fortrabbit/yii-memcached"
   },
   "require": {
-    "craftcms/cms": "^3.7.30|^4.0"
+    "craftcms/cms": "^3.7.30|^4.0|^5.0"
   },
   "autoload": {
     "psr-4": {
@@ -25,6 +25,9 @@
     },
     "files": ["src/init.php"]
 
+  },
+  "scripts": {
+    "phpstan": "./vendor/bin/phpstan analyse src --level=5"
   },
   "extra": {
     "bootstrap": "fortrabbit\\MemcachedEnabler\\Bootstrap"
@@ -34,5 +37,8 @@
       "yiisoft/yii2-composer": true,
       "craftcms/plugin-installer": true
     }
+  },
+  "require-dev": {
+    "craftcms/phpstan": "dev-main"
   }
 }

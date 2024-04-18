@@ -4,7 +4,7 @@ This yii-extension is a memcached drop in replacement for sessions, cache and mu
 
 ## Requirements
 
-* Craft CMS (Version 3 and 4)
+* Craft CMS (Version 3, 4, 5)
 * A Professional App on fortrabbit (see below for other hosting providers)
 
 ## Install
