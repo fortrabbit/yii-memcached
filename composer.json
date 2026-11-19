@@ -12,6 +12,7 @@
     }
   ],
   "support": {
+    "email": "info@fortrabbit.com",
     "issues": "https://github.com/fortrabbit/yii-memcached/issues",
     "source": "https://github.com/fortrabbit/yii-memcached",
     "docs": "https://github.com/fortrabbit/yii-memcached"
