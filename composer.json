@@ -1,6 +1,7 @@
 {
   "name": "fortrabbit/yii-memcached",
   "description": "Memcached Session & Cache for Craft CMS / Yii2 on fortrabbit",
+  "homepage": "https://www.fortrabbit.com/software/craft-cms",
   "type": "yii2-extension",
   "keywords": ["yii2", "craftcms", "caching", "cache", "memcached", "memcache", "session", "mutex"],
   "license": "MIT",
