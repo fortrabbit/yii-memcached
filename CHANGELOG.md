@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.1] - 2026-11-19
+Add homepage link and support email to composer.json.
+
 ## [2.0.0] - 2024-04-18
 Support for Craft 5 added.
 
